@@ -14,6 +14,7 @@ import {
   MDBCol,
   MDBRow,
   MDBNavbarLink,
+  MDBIcon 
 } from "mdb-react-ui-kit";
 
 import SearchInput from "./SearchInput";
@@ -31,6 +32,7 @@ const CombinedNav = ({
   navBarState,
   updateNavbar,
 }) => {
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [showTopSection, setShowTopSection] = useState(true);
   // Detect scroll to adjust navbar size
@@ -71,40 +73,61 @@ const CombinedNav = ({
     ? { display: "block", transition: "display 0.3s ease" }
     : { display: "none", transition: "display 0.3s ease" };
 
+  const AnimateScroll = {transition: "height 0.3s ease"}  
+
   return (
     <>
       <MDBNavbar
-      
         expand="lg"
         light
         bgColor="light"
         fixed="top"
         className="m-header-font"
       >
-        <MDBCol size="12">
-          <MDBRow style={topSectionStyle}  className="m-align-center" >
-   
-                <MDBRow   >
+        <MDBCol size="12" >
+
+
+
+          {/* First Row */}
+          <MDBRow style={topSectionStyle}  className="m-align-center mb-2 ms-2" >
+              
+                <MDBRow>
                   
                   <MDBCol size="6">
                     <SearchInput />
                   </MDBCol>
+
 
                   <MDBCol size="6">
                     <SearchInput />
                   </MDBCol>
 
                 </MDBRow>
-          
+            
           </MDBRow>
-          <MDBRow  className="m-align-center" >
-            <MDBCol size="1">
+
+
+
+
+
+
+
+
+
+        {/* Second Row */}
+          <MDBRow  className="m-align-center mt-4" >
+
+            <MDBCol size="3" sm="3" md="2" lg="1" >
               <SideNavToggler
                 updateSidenav={updateSidenav}
                 sidenavState={sidenavState}
               />
             </MDBCol>
-            <MDBCol size="3">
+
+
+
+
+            {/* <MDBCol size="3" sm="3" md="3"   lg="3" className="border">
               <MDBNavbarBrand href="/">
                 <img
                   src="http://localhost:3000/resources/images/mazars-logo.png"
@@ -113,29 +136,79 @@ const CombinedNav = ({
                 />
               </MDBNavbarBrand>
             
-            </MDBCol>
-            <MDBCol size="7">
-                  <MDBCollapse navbar open={navBarState}>
-                  <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
-                    <NavItem link="/Home" title="Home" />
-                    <Dropdown title="Manage Users" />
-                    <NavItem link="/Profile" title="Profile" />
-                    <MDBNavbarItem>
-                      <MDBNavbarLink
-                        disabled
-                        href="#"
-                        tabIndex={-1}
-                        aria-disabled="true"
-                      >
-                        Disabled
-                      </MDBNavbarLink>
-                    </MDBNavbarItem>
-                  </MDBNavbarNav>
-                  <ProfileDropDown />
+            </MDBCol> */}
+
+
+
+
+
+
+
+
+            <MDBCol size="8" sm="8" md="9"   lg="10" >
+
+
+             <MDBRow >
+               {/* First column (logo) */}
+               <MDBCol size="12" lg ='4'  className="d-flex justify-content-center">
+
+                <MDBNavbarBrand href="/">
+                <img
+                  src="/next.svg"
+                  style={logoStyle}
+                  alt="Logo"
+                />
+                  {/* <MDBIcon className='ms-1' icon='camera' size='3x'   /> */}
+                </MDBNavbarBrand>
+
+               </MDBCol>
+              
+
+
+
+
+               {/* Second column (Nav items) */}
+               <MDBCol size="12" lg ='8' className="pt-4" >
+                
+                  <MDBCollapse  navbar open={navBarState} >
+
+                       <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 ">
+                         <NavItem link="/Home" title="Home" />
+                         <Dropdown title="Manage Users" />
+                         <NavItem link="/Profile" title="Profile" />
+                         <MDBNavbarItem>
+                           <MDBNavbarLink
+                             disabled
+                             href="#"
+                             tabIndex={-1}
+                             aria-disabled="true"
+                           >
+                             Disabled
+                           </MDBNavbarLink>
+                         </MDBNavbarItem>
+                       </MDBNavbarNav>
+
+
+                       <ProfileDropDown />
+
+
                 </MDBCollapse>
+               </MDBCol>
+
+               
+
+
+               
+              </MDBRow>
             </MDBCol>
-            <MDBCol size="1" >
-            <MDBRow >
+
+
+
+
+
+
+            <MDBCol size="1" sm="1" md="1"  lg="1" >
+             <MDBRow >
                 <TopNavBarToggler
                   updateNavbar={updateNavbar}
                   navBarState={navBarState}
@@ -143,18 +216,29 @@ const CombinedNav = ({
               
               </MDBRow>
             </MDBCol>
+
+
           </MDBRow>
+
+
 
           {/* Logo */}
 
+
+
         </MDBCol >
 
-        <main>
-        <MDBContainer fluid>
- 
 
-        </MDBContainer>
-      </main>
+
+
+        <main>
+                <MDBContainer fluid>
+                </MDBContainer>
+        </main>
+
+
+
+
       </MDBNavbar>
 
     </>

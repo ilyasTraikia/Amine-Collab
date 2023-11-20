@@ -9,7 +9,7 @@ import CombinedNav from "../components/CombinedNav";
 
  const DashboardContainer = (props) => {
   // const { t } = useNextHostTranslation("next-main");
-  const [NavbarOpen, setNavbarOpen] = useState(true);
+  const [NavbarOpen, setNavbarOpen] = useState(false);
   const [sideNavOpen, setSideNavOpen] = useState(false);
   return (
     <>
@@ -22,7 +22,7 @@ import CombinedNav from "../components/CombinedNav";
       <main>
       <header>
         <CombinedNav updateSidenav={setSideNavOpen} sidenavState={sideNavOpen} updateNavbar={setNavbarOpen} navBarState={NavbarOpen} />
-        <Sidenav isOpen={sideNavOpen} setIsOpen={setSideNavOpen} />
+        {/* <Sidenav isOpen={sideNavOpen} setIsOpen={setSideNavOpen} /> */}
       </header>
       <MDBContainer fluid className="m-margin-top">
       {props.children}
