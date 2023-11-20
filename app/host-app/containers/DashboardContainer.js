@@ -22,7 +22,7 @@ import CombinedNav from "../components/CombinedNav";
       <main>
       <header>
         <CombinedNav updateSidenav={setSideNavOpen} sidenavState={sideNavOpen} updateNavbar={setNavbarOpen} navBarState={NavbarOpen} />
-        {/* <Sidenav isOpen={sideNavOpen} setIsOpen={setSideNavOpen} /> */}
+        <Sidenav isOpen={sideNavOpen} setIsOpen={setSideNavOpen} />
       </header>
       <MDBContainer fluid className="m-margin-top">
       {props.children}

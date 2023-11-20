@@ -73,7 +73,7 @@ const CombinedNav = ({
     ? { display: "block", transition: "display 0.3s ease" }
     : { display: "none", transition: "display 0.3s ease" };
 
-  const AnimateScroll = {transition: "height 0.3s ease"}  
+  
 
   return (
     <>
@@ -89,17 +89,25 @@ const CombinedNav = ({
 
 
           {/* First Row */}
-          <MDBRow style={topSectionStyle}  className="m-align-center mb-2 ms-2" >
+          <MDBRow style={topSectionStyle}  className="mb-2 ms-1 me-2" >
               
                 <MDBRow>
                   
-                  <MDBCol size="6">
-                    <SearchInput />
+                  <MDBCol size="0" lg="6">
+                 
                   </MDBCol>
 
 
-                  <MDBCol size="6">
-                    <SearchInput />
+                  <MDBCol size="12" lg="6"  style={{paddingRight : "25px"}}>
+                    <MDBRow>
+                     <MDBCol>
+                      <SearchInput />
+                     </MDBCol>
+
+                     <MDBCol>
+                      <SearchInput />
+                     </MDBCol> 
+                    </MDBRow>
                   </MDBCol>
 
                 </MDBRow>
@@ -115,9 +123,9 @@ const CombinedNav = ({
 
 
         {/* Second Row */}
-          <MDBRow  className="m-align-center mt-4" >
+          <MDBRow  className="ms-1 mt-4 me-2" >
 
-            <MDBCol size="3" sm="3" md="2" lg="1" >
+            <MDBCol size="3" sm="3" md="2" lg="1"  >
               <SideNavToggler
                 updateSidenav={updateSidenav}
                 sidenavState={sidenavState}
@@ -145,7 +153,7 @@ const CombinedNav = ({
 
 
 
-            <MDBCol size="8" sm="8" md="9"   lg="10" >
+            <MDBCol size="8" sm="8" md="9"   lg="11"  >
 
 
              <MDBRow >
@@ -154,7 +162,7 @@ const CombinedNav = ({
 
                 <MDBNavbarBrand href="/">
                 <img
-                  src="/next.svg"
+                  src="/mazars-logo.png"
                   style={logoStyle}
                   alt="Logo"
                 />
@@ -168,11 +176,11 @@ const CombinedNav = ({
 
 
                {/* Second column (Nav items) */}
-               <MDBCol size="12" lg ='8' className="pt-4" >
+               <MDBCol  size="12" lg ='8' className="pt-4  pe-5" >
                 
                   <MDBCollapse  navbar open={navBarState} >
 
-                       <MDBNavbarNav className="mr-auto mb-2 mb-lg-0 ">
+                       <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
                          <NavItem link="/Home" title="Home" />
                          <Dropdown title="Manage Users" />
                          <NavItem link="/Profile" title="Profile" />
@@ -207,7 +215,7 @@ const CombinedNav = ({
 
 
 
-            <MDBCol size="1" sm="1" md="1"  lg="1" >
+            <MDBCol size="1" sm="1" md="1"  lg="0"  >
              <MDBRow >
                 <TopNavBarToggler
                   updateNavbar={updateNavbar}
