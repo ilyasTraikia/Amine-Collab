@@ -42,13 +42,9 @@ export default function Home() {
   const [total, setTotal] = useState(0);
   const pageSize = 10; // Set your page size
 
-  const [search, setsearch] = useState('user')
+  const [search, setsearch] = useState(String)
 
-  const searchCtx = useMemo(()=> {
-     return {
-      KeyWord : `${search}`
-   }
-  },[search]) 
+
 
 
 
@@ -61,7 +57,7 @@ export default function Home() {
  
     console.log("Just fetched")
  
-      fetch(MANAGE_USERS_DATAGRID_URL+"?PageSize="+pageSize+`&PageNumber=${currentPage}&SearchTerm=${searchCtx.KeyWord}`, {
+      fetch(MANAGE_USERS_DATAGRID_URL+"?PageSize="+pageSize+`&PageNumber=${currentPage}&SearchTerm=${search}`, {
         method: "Get",
         headers: {
           "Content-Type": "application/json",
@@ -109,7 +105,7 @@ export default function Home() {
         });
 
     
-  }, [isLoading,searchCtx,currentPage, pageSize]);
+  }, [isLoading,search,currentPage, pageSize]);
 
 
 
@@ -170,8 +166,19 @@ export default function Home() {
                  <MDBCard>
                   <MDBCardBody>
 
-                   <MDBDatatable data={{ columns: columns, rows: data }} isLoading={isLoading} pagination={false} search={false} />
-                   {isLoading ? <p>Loading...</p> : renderPagination()}
+                   <MDBDatatable
+                   data={{ columns: columns, rows: data }}
+                   isLoading={isLoading} pagination={false}
+                   search={false}     
+                   advancedSearch={(value) => {
+
+                     setsearch(value)
+
+                     return { value, columns };
+                    }}/>
+                    <div className='float-end '>
+                      {isLoading ? <p>Loading...</p> : renderPagination()}
+                    </div>
                </MDBCardBody>
                </MDBCard>
             </MDBContainer>
