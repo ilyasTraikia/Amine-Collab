@@ -27,7 +27,7 @@ export default function AffectModal({ isOpen, setOpen, user, onSubmit ,roles}) {
     gender: user?.gender || "",
     phoneNumber : user?.phoneNumber || "",
     adresse : user?.adresse || "",
-    role : "" // Add gender field
+    role : user?.profileName // Add gender field
  
   };
 

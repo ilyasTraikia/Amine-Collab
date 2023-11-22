@@ -39,6 +39,7 @@ export default function Users() {
     { label: "Gender", field: "gender" },
     { label: "UserName", field: "userName" },
     { label: "Email", field: "email" },
+    { label: "Role", field: "profileName" },
     { label: "Action", field: "action" },
   ];
 
