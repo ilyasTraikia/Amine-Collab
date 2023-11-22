@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css"
 import { MDBContainer } from 'mdb-react-ui-kit';
 import Head from "next/head"
 import CombinedNav from "../components/CombinedNav";
+
 // import useNextHostTranslation from "../i18n/useNextHostTranslation ";
 
  const DashboardContainer = (props) => {

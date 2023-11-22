@@ -10,6 +10,8 @@ import {
   MDBPaginationItem,
   MDBPaginationLink
 } from "mdb-react-ui-kit";
+import Users from './host-app/components/Users';
+import Roles from './host-app/components/Roles';
 
 
 export default function Home() {
@@ -161,27 +163,8 @@ export default function Home() {
   return (
    <> 
            <DashboardContainer>
-              <MDBContainer fluid>
-                 <h1 className="h5 text-center py-5 mb-0">User Management</h1>
-                 <MDBCard>
-                  <MDBCardBody>
-
-                   <MDBDatatable
-                   data={{ columns: columns, rows: data }}
-                   isLoading={isLoading} pagination={false}
-                   search={false}     
-                   advancedSearch={(value) => {
-
-                     setsearch(value)
-
-                     return { value, columns };
-                    }}/>
-                    <div className='float-end '>
-                      {isLoading ? <p>Loading...</p> : renderPagination()}
-                    </div>
-               </MDBCardBody>
-               </MDBCard>
-            </MDBContainer>
+             <Users />
+             <Roles />
           </DashboardContainer>
    </>
   );
