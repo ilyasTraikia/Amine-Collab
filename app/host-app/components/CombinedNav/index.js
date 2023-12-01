@@ -87,11 +87,11 @@ const CombinedNav = ({
       >
         <MDBCol size="12">
           {/* First Row */}
-          <MDBRow style={topSectionStyle} className="mb-2 ms-1 me-2">
-            <MDBRow>
-              <MDBCol size="0" lg="9"></MDBCol>
+          <MDBRow style={topSectionStyle} className="mb-2 ms-2">
+            <MDBRow className="g-0">
+              <MDBCol size="0" lg="7"></MDBCol>
 
-              <MDBCol size="12" lg="3" >
+              <MDBCol size="12" lg="5">
                 <MDBRow>
                   <MDBCol size="4" lg="4">
                    <SearchInput />
@@ -106,8 +106,8 @@ const CombinedNav = ({
           </MDBRow>
 
           {/* Second Row */}
-          <MDBRow className="ms-1 mt-2 me-2 align-items-lg-center align-items-stretch ">
-            <MDBCol size="3" sm="3" md="2" lg="1"  className="d-flex   mt-3 mt-lg-0 justify-content-center align-items-start align-items-lg-stretch">
+          <MDBRow className="ms-1 mt-2  align-items-lg-center align-items-stretch">
+            <MDBCol size="2" sm="2" md="2" lg="1"  className="d-flex mt-3 mt-lg-0 justify-content-center align-items-start align-items-lg-stretch">
               <SideNavToggler
                 updateSidenav={updateSidenav}
                 sidenavState={sidenavState}
@@ -116,14 +116,15 @@ const CombinedNav = ({
 
   
 
-            <MDBCol size="7" sm="7" md="8" lg="11">
+            <MDBCol size="8" sm="8" md="8" lg="11" >
               <MDBRow style={VerticalCenterStyle} className="align-items-baseline">
                 {/* First column (logo) */}
                 <MDBCol
                   size="12"
                   lg="5"
+          
                 >
-                 <MDBRow  className="d-flex justify-content-center">
+                 <MDBRow  className="d-flex justify-content-center g-0">
                     <MDBNavbarBrand href="/" className="d-flex justify-content-center" >
                      <img id="logoMazart" src="http://localhost:3000/mazars-logo.png" style={logoStyle} className="logoMazart"   alt="Logo"  />
                      {/* <MDBIcon className='ms-1' icon='camera' size='3x'   /> */}
@@ -132,12 +133,12 @@ const CombinedNav = ({
                 </MDBCol>
 
                 {/* Second column (Nav items) */}
-                <MDBCol size="12" lg="7" >
+                <MDBCol size="12" lg="7">
                   <MDBCollapse navbar open={navBarState}>
-                    <MDBNavbarNav className="mr-auto mb-2 mb-lg-0  ">
+                    <MDBNavbarNav className="mr-auto mb-2 mb-lg-0">
                       <NavItem link="/Home" title={("home")}  currentPath={currentPath}/>
-                      <NavItem link="/Users" title={("users")} currentPath={currentPath}/>
-                      <NavItem link="/Roles" title={("manage_roles")} currentPath={currentPath}/>
+                      <NavItem link="/Users" title={("manage_users dsdq")} currentPath={currentPath}/>
+                      <NavItem link="/Roles" title={("manage_roles ")} currentPath={currentPath}/>
                     </MDBNavbarNav>
 
                     <ProfileDropDown />
@@ -146,7 +147,7 @@ const CombinedNav = ({
               </MDBRow>
             </MDBCol>
 
-            <MDBCol size="2" sm="2" md="2" lg="0" className="d-flex justify-content-center d-lg-none mt-2 mt-lg-0 ">
+            <MDBCol size="2" sm="2" md="2" lg="0" className="d-flex justify-content-center d-lg-none mt-2 mt-lg-0">
               <MDBRow className="mt-2 me-2 mb-2 d-flex justify-content-center align-items-start align-items-lg-stretch">
                 <TopNavBarToggler
                   updateNavbar={updateNavbar}

@@ -27,6 +27,7 @@ export default function Roles() {
   const API_BASE_URL = "http://localhost:5000/api/";
   const MANAGE_USERS_DATAGRID_URL = `${API_BASE_URL}admin/roles/`;
   const UPDATE_ROLE_URL = `${API_BASE_URL}admin/roles`;
+  const FETCH_CLAIMS_URL = `${API_BASE_URL}admin/claims`;
 
   const columns = [
     { label: "Id", field: "id" },
@@ -56,10 +57,38 @@ export default function Roles() {
   const [creatingRole, setcreatingRole] = useState(null);
   const [isRoleEdited , setisRoleEdited] = useState(false);
   const [isRoleCreated , setisRoleCreated ] = useState(false);
+  const [claims,setClaims] = useState([])
   
 
   const handleEdit = (role) => {
-    setEditingRole(role);
+   console.log("Editing")
+    const requestOptions = {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+         Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
+       }
+     };
+
+
+     fetch(`${UPDATE_ROLE_URL}/${role.id}`, requestOptions)
+     .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch the role');
+      }
+      return response.json(); 
+    })
+    .then(data => {
+      setEditingRole(data);
+
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+
+
+   
     setIsModalOpen(true);
   };
 
@@ -73,11 +102,14 @@ export default function Roles() {
   const handleSubmitEdit = (updatedRole) => {
      console.log("Updated role is "+ JSON.stringify(updatedRole));
 
+
      const updatedRoleFromUpdatedRole = {
       name: updatedRole.name,
       description: updatedRole.description
      }
 
+
+     
       const requestOptions = {
        method: 'PUT',
        headers: { 
@@ -87,12 +119,41 @@ export default function Roles() {
        body: JSON.stringify(updatedRoleFromUpdatedRole)
       };
 
+
+
     fetch(`${UPDATE_ROLE_URL}/${updatedRole.id}`, requestOptions)
     .then(response => {
       response.text();
       setisRoleEdited(true)
     })
+    .then((data) => {
+      //the second request.
+
+      const secondRequestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
+        },
+        body: JSON.stringify({ claims: updatedRole.claims }),
+      };
+
+      return fetch(`${UPDATE_ROLE_URL}/claims/${updatedRole.id}`, secondRequestOptions);
+    })
+    .then((secondResponse) => {
+      if (!secondResponse.ok) {
+        throw new Error('Failed to make the second request');
+      }
+      return secondResponse.json();
+    })
+    .then((secondData) => {
+      // Handle the response of the second request.
+      console.log('Second request successful:', secondData);
+      setisRoleEdited(true)
+    })
     .catch(err=> console.log(err))
+
+
   };
 
 
@@ -196,8 +257,52 @@ export default function Roles() {
     }
   };
 
+
+
+
+
+
+
+
+  const fetchClaims = async () => {
+    try {
+      const response = await fetch(
+        `${FETCH_CLAIMS_URL}`,
+        {
+          method: "Get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const apiData = await response.json();
+      setClaims(apiData);
+
+    } catch (error) {
+      console.error(`Something went wrong: ${error}`);
+      setClaims([]);
+    } 
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     fetchData();
+    fetchClaims();
   }, [search, currentPage,isRoleEdited,isRoleCreated]);
 
   // Fetching data from Api
@@ -292,6 +397,7 @@ export default function Roles() {
         setOpen={setIsModalOpen}
         role={editingRole}
         onSubmit={handleSubmitEdit}
+        claims={claims}
        />
 
       <AddRoleModal

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -12,30 +12,40 @@ import {
   MDBModalFooter,
   MDBInput,
   MDBDropdown,
+  MDBSelect,
   MDBDropdownToggle,
   MDBDropdownMenu,
   MDBDropdownItem
 } from "mdb-react-ui-kit";
 
-export default function EditRoleModal({ isOpen, setOpen, role, onSubmit }) {
+export default function EditRoleModal({ isOpen, setOpen, role, onSubmit,claims }) {
+
+
 
   const INITIAL_FORM_STATE = {
-    description: role?.description || "",
-    id: role?.id || "",
-    name: role?.name || "",
-    normalizedName : role?.normalizedName || "",
+    description: role?.role.description || "",
+    id: role?.role.id || "",
+    name: role?.role.name || "",
+    normalizedName : role?.role.normalizedName || "",
     claims : []
     // ... add other fields as necessary
   };
 
+  // role?.claims.map((obj) => ({
+  //   text: obj.value,
+  //   value: obj.value,
+  // }))
+
   const FORM_VALIDATION = Yup.object().shape({
     description: Yup.string().required("Description is required"),
     name: Yup.string().required("Name is required"),
-    normalizedName: Yup.string().required("Normalized Name is required")
+    normalizedName: Yup.string().required("Normalized Name is required"),
     // ... add other validations as necessary
   });
 
   const handleFormSubmit = (values) => {
+    console.log("Values from handle Role Modal are "+JSON.stringify(values)
+    )
     onSubmit(values);
     setOpen(false);
   };
@@ -55,7 +65,9 @@ export default function EditRoleModal({ isOpen, setOpen, role, onSubmit }) {
               onSubmit={handleFormSubmit}
               enableReinitialize
             >
-              {({ handleChange, setFieldValue, values }) => (
+              {({ handleChange, setFieldValue, values }) => { 
+                console.log(values)
+                return (
        
                 <Form>
                   <MDBInput
@@ -85,6 +97,26 @@ export default function EditRoleModal({ isOpen, setOpen, role, onSubmit }) {
                     value={values.normalizedName}
                     className="mb-3"
                   />
+
+
+                 <MDBSelect
+                    id="claims"
+                    name="claims"
+                    multiple
+                    data={   claims.map((str) => ({
+                      text: str,
+                      value: str
+                    }))}
+                    selected={values.claims}
+                    onChange={(e) => {
+                      const selectedClaims = e.map(option => option.value);
+                      setFieldValue("claims", selectedClaims);
+                    }}
+                    clearBtn
+                    validation
+                    validFeedback="This value is valid"
+                    invalidFeedback="This value is invalid"
+                  />                
                 
                   {/* Add other fields as necessary */}
                   <MDBModalFooter>
@@ -96,7 +128,7 @@ export default function EditRoleModal({ isOpen, setOpen, role, onSubmit }) {
                     </MDBBtn>
                   </MDBModalFooter>
                 </Form>
-              )}
+              )}}
             </Formik>
           </MDBModalBody>
         </MDBModalContent>
