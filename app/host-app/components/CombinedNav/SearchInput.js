@@ -1,5 +1,5 @@
-import { MDBBtn } from "mdb-react-ui-kit";
-// import useNextHostTranslation from "../../i18n/useNextHostTranslation ";
+import { MDBBtn, MDBIcon } from "mdb-react-ui-kit";
+
 const SearchInput = ({}) => {
 
   // const { t } = useNextHostTranslation("next-main");
@@ -11,7 +11,9 @@ const SearchInput = ({}) => {
         placeholder={("type_query")}
         aria-label="Search"
       />
-      <MDBBtn className="  m-header-font m-btn " color="primary">{("search")}</MDBBtn>
+      <MDBBtn className="m-btn-normal  m-header-font ">
+        <MDBIcon icon="search" />
+      </MDBBtn>
     </form>
   );
 };

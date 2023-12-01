@@ -5,12 +5,12 @@ import {
   MDBDropdownMenu,
   MDBDropdownItem,
 } from "mdb-react-ui-kit";
-// import useNextHostTranslation from "../../i18n/useNextHostTranslation ";
+
 const ProfileDropDown = ({}) => {
 
   // const { t } = useNextHostTranslation("next-main");
   return (
-    <MDBDropdown group className="m-no-card-effect m-search">
+    <MDBDropdown group className="m-no-card-effect">
         <MDBDropdownToggle
                 style={{ cursor: "pointer" }}
                 tag="a"
@@ -19,12 +19,12 @@ const ProfileDropDown = ({}) => {
                 <img
                   src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
                   className="rounded-circle "
-                  style={{ height: 55 , boxShadow: 'none' , marginBottom: "10px"}}
+                  style={{ height: 55 , boxShadow: 'none' , marginBottom: "20px"}}
                   alt=""
                 />
           </MDBDropdownToggle>
           <MDBDropdownMenu className="m-top-header-profile">
-            <MDBDropdownItem  link>{("settings")}</MDBDropdownItem>
+            <MDBDropdownItem  link>{("settings")}Settings</MDBDropdownItem>
             <MDBDropdownItem  link>{("profile")}</MDBDropdownItem>
             <MDBDropdownItem  divider />
             <MDBDropdownItem  link>{("logout")}</MDBDropdownItem>

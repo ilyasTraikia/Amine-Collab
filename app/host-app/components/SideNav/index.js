@@ -1,9 +1,11 @@
 import { MDBSideNav, MDBSideNavMenu } from "mdb-react-ui-kit";
 import SideNavItem from "./SideNavItem";
 import Logo from "./Logo";
+
 // import useNextHostTranslation from "../../i18n/useNextHostTranslation ";
 export default function SideNav({ isOpen, setIsOpen }) {
   // const { t } = useNextHostTranslation("next-main");
+
   return (
     <>
       <MDBSideNav
@@ -14,7 +16,7 @@ export default function SideNav({ isOpen, setIsOpen }) {
       >
         <Logo />
         <MDBSideNavMenu>
-          <SideNavItem link="/Home" title={("home")} icon="house" />
+          <SideNavItem link="/" title={("home")} icon="house" />
           <span className="sidenav-subheading text-muted">{("manage_users")}</span>
           <SideNavItem link="/Users" title={("users")} icon="users" />
           <SideNavItem link="/Roles" title={("manage_roles")} icon="shield" />

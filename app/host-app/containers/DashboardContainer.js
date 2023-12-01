@@ -4,7 +4,7 @@ import 'mdb-react-ui-kit/dist/css/mdb.min.css'
 import "@fortawesome/fontawesome-free/css/all.min.css"
 import { MDBContainer } from 'mdb-react-ui-kit';
 import Head from "next/head"
-import CombinedNav from "../components/CombinedNav";
+import CombinedNav from "../components/CombinedNav"
 
 // import useNextHostTranslation from "../i18n/useNextHostTranslation ";
 
@@ -22,6 +22,7 @@ import CombinedNav from "../components/CombinedNav";
       
       <main>
       <header>
+        {/* <CombinedNav updateSidenav={setSideNavOpen} sidenavState={sideNavOpen} updateNavbar={setNavbarOpen} navBarState={NavbarOpen} /> */}
         <CombinedNav updateSidenav={setSideNavOpen} sidenavState={sideNavOpen} updateNavbar={setNavbarOpen} navBarState={NavbarOpen} />
         <Sidenav isOpen={sideNavOpen} setIsOpen={setSideNavOpen} />
       </header>

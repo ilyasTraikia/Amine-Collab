@@ -10,7 +10,7 @@ const SideNavToggler = ({updateSidenav, sidenavState}) => {
           aria-controls='navbarSupportedContent'
           aria-expanded='false'
           aria-label='Toggle navigation'
-          className="d-block large-navbar-toggler"
+          className="d-block   large-navbar-toggler"
           onClick={() => updateSidenav(!sidenavState)}
         >
           <MDBIcon icon='bars' fas />

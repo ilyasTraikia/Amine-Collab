@@ -9,6 +9,7 @@ import {
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
+        className="d-block  d-lg-none large-navbar-toggler"
         onClick={() => updateNavbar(!navBarState)}
       >
         <MDBIcon icon="bars" fas />
