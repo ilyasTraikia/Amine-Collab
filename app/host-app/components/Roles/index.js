@@ -1,7 +1,7 @@
 "use client";
 import Head from "next/head";
 import Image from "next/image";
-
+import AffectRoleModal from "./AffectClaimsModal";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import Unauthorized from "../../components/Unauthorized";
 import {
@@ -53,6 +53,9 @@ export default function Roles() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setisAddModalOpen] = useState(false);
+
+  const [isAffectClaimsModalOpen, setIsAffectClaimsModalOpen]  = useState(false);
+
   const [editingRole, setEditingRole] = useState(null);
   const [creatingRole, setcreatingRole] = useState(null);
   const [isRoleEdited , setisRoleEdited] = useState(false);
@@ -61,36 +64,23 @@ export default function Roles() {
   
 
   const handleEdit = (role) => {
-   console.log("Editing")
-    const requestOptions = {
-      method: 'GET',
-      headers: { 
-        'Content-Type': 'application/json',
-         Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
-       }
-     };
-
-
-     fetch(`${UPDATE_ROLE_URL}/${role.id}`, requestOptions)
-     .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to fetch the role');
-      }
-      return response.json(); 
-    })
-    .then(data => {
-      setEditingRole(data);
-
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
-
-
-   
-    setIsModalOpen(true);
+   fetchRole(role)
+   setIsModalOpen(true);
   };
+
+
+
+
+  const handleAffectClaims = (role) => {
+    fetchRole(role)
+    setIsAffectClaimsModalOpen(true)
+  }
+
+
+
+
+
+
 
   const handleCreate = (role) => {
     setcreatingRole(role);
@@ -108,8 +98,6 @@ export default function Roles() {
       description: updatedRole.description
      }
 
-
-     
       const requestOptions = {
        method: 'PUT',
        headers: { 
@@ -126,35 +114,46 @@ export default function Roles() {
       response.text();
       setisRoleEdited(true)
     })
-    .then((data) => {
-      //the second request.
-
-      const secondRequestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
-        },
-        body: JSON.stringify({ claims: updatedRole.claims }),
-      };
-
-      return fetch(`${UPDATE_ROLE_URL}/claims/${updatedRole.id}`, secondRequestOptions);
-    })
-    .then((secondResponse) => {
-      if (!secondResponse.ok) {
-        throw new Error('Failed to make the second request');
-      }
-      return secondResponse.json();
-    })
-    .then((secondData) => {
-      // Handle the response of the second request.
-      console.log('Second request successful:', secondData);
-      setisRoleEdited(true)
-    })
     .catch(err=> console.log(err))
 
 
   };
+
+
+
+
+
+ // Function to handle the affectation of claims to roles
+  const handleSubmitAffectClaims = (roleWithClaims) => {
+
+  
+    console.log("from handleSubmitAffect " + JSON.stringify(roleWithClaims))
+
+    const RequestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
+      },
+      body: JSON.stringify({ claims: roleWithClaims.claims }),
+    };
+
+
+    fetch(`${UPDATE_ROLE_URL}/claims/${roleWithClaims.role.role.id}`, RequestOptions)
+     .then((secondData) => {
+       // Handle the response of the second request.
+       console.log('Second request successful:', secondData);
+       setisRoleEdited(true)
+      })
+     .catch(err=> console.log(err))
+
+
+
+
+  }
+
+
+
 
 
 
@@ -242,6 +241,19 @@ export default function Roles() {
               {" "}
               <MDBIcon icon="edit" />{" "}
             </MDBBtn>
+
+
+            <MDBBtn
+              size="sm"
+              floating
+              className="edit-btn ms-2"
+              onClick={() => {
+                handleAffectClaims(item)
+              }}
+            >
+              {" "}
+              <MDBIcon icon="add" />{" "}
+            </MDBBtn>
           </>
         ),
       }));
@@ -287,6 +299,38 @@ export default function Roles() {
       setClaims([]);
     } 
   };
+
+
+
+  const fetchRole = (role) => {
+
+    const requestOptions = {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+         Authorization: `bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTdXBlckFkbWluaXN0cmF0b3IiLCJleHAiOjE3MDA3NDczMzMsImlzcyI6IldlYkFwaSIsImF1ZCI6Imh0dHA6Ly8wLjAuMC4wOjQwMDAifQ.WfA1rgWw9Mw5yYDoHAorPqSyHN8fLusXTRW71bGl8aQ`,
+       }
+     };
+
+
+     fetch(`${UPDATE_ROLE_URL}/${role.id}`, requestOptions)
+     .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch the role');
+      }
+      return response.json(); 
+    })
+    .then(data => {
+      setEditingRole(data);
+
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+
+
+  }
 
 
 
@@ -406,7 +450,14 @@ export default function Roles() {
         role={creatingRole}
         onSubmit={handleSubmitCreate}
        />
-     
+
+      <AffectRoleModal
+        isOpen={isAffectClaimsModalOpen}
+        setOpen={setIsAffectClaimsModalOpen}
+        role={editingRole}
+        onSubmit={handleSubmitAffectClaims}
+        claims={claims}
+      />
     </>
   );
 }
