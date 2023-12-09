@@ -88,16 +88,16 @@ const CombinedNav = ({
         <MDBCol size="12">
           {/* First Row */}
           <MDBRow style={topSectionStyle} className="mb-2 ms-2">
-            <MDBRow className="g-0">
+            <MDBRow className="g-0 ">
               <MDBCol size="0" lg="7"></MDBCol>
 
               <MDBCol size="12" lg="5">
-                <MDBRow>
-                  <MDBCol size="4" lg="4">
+                <MDBRow >
+                  <MDBCol size="4" lg="4" style={{maxWidth:"200px"}}>
                    <SearchInput />
                   </MDBCol>
 
-                  <MDBCol size="8" lg="8" >
+                  <MDBCol size="8" lg="8"  style={{ flexGrow: 1 }} >
                     <SearchInput />
                   </MDBCol>
                 </MDBRow>

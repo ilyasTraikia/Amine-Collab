@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import EditRoleModal from "./EditRoleModal";
 import AddRoleModal from "./AddRoleModal";
+import TestModal from "./TestModal";
 //const App = dynamic(() => import("application/Page"), { ssr: false });
 export default function Roles() {
   //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -112,7 +113,7 @@ export default function Roles() {
     fetch(`${UPDATE_ROLE_URL}/${updatedRole.id}`, requestOptions)
     .then(response => {
       response.text();
-      setisRoleEdited(true)
+      setisRoleEdited(!isRoleEdited)
     })
     .catch(err=> console.log(err))
 
@@ -458,6 +459,13 @@ export default function Roles() {
         onSubmit={handleSubmitAffectClaims}
         claims={claims}
       />
+      <TestModal
+
+
+       />
+     
+      
+                       
     </>
   );
 }

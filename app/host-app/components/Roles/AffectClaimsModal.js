@@ -19,6 +19,7 @@ import {
 } from "mdb-react-ui-kit";
 
 export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,claims }) {
+ 
 
 
 

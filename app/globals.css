@@ -14,25 +14,24 @@ body {
     height: 100%;
 }
 
-.m-mazars-btn{
+.m-mazars-btn {
     background-color: #0071CE !important;
     border-radius: 0 0 0 20px !important;
     color: #F4F4F4 !important;
 }
+
 .m-mazars-btn:hover {
-    background-color: #F4F4F4  !important;
+    background-color: #F4F4F4 !important;
     color: #0071CE !important;
 }
 
-.m-radius-btn{
+.m-radius-btn {
     border-radius: 0 0 0 20px !important;
 }
-
 
 .m-btn {
     border-radius: 0 0 0 20px !important;
 }
-
 
 .full-height-container {
     height: 100%;
@@ -160,10 +159,8 @@ a {
     padding-bottom: 5px;
 }
 
-.m-full-height-container{
-
-    height:calc(100vh - 180px) ;
-
+.m-full-height-container {
+    height: calc(100vh - 180px);
 }
 
 .m-btn-normal {
@@ -171,7 +168,6 @@ a {
     border-radius: 0 0 0 0px !important;
     color: #F4F4F4 !important;
 }
-
 
 @media (prefers-color-scheme: dark) {
     html {
@@ -183,15 +179,22 @@ a {
     }
 }
 
-
 @media only screen and (max-width: 560px) {
     .logoMazart {
-       max-width: 100%;
-       margin-top: 12px;
-       margin-left: 40px;
-     
-     }
- 
-  }
+        max-width: 100%;
+        margin-top: 12px;
+        margin-left: 40px;
+    }
+}
 
- 
+.custom-modal-dialog {
+    max-width: 30% !important;
+}
+
+@media (max-width: 767px) {
+    .custom-modal-dialog {
+        right: 0 !important;
+        left: auto !important;
+        max-width: 60% !important;
+    }
+}
