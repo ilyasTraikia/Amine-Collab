@@ -66,7 +66,7 @@ export default function EditRoleModal({ isOpen, setOpen, role, onSubmit,claims }
               enableReinitialize
             >
               {({ handleChange, setFieldValue, values }) => { 
-                console.log(values)
+       
                 return (
        
                 <Form>

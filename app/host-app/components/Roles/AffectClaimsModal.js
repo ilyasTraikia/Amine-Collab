@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -19,24 +19,48 @@ import {
 } from "mdb-react-ui-kit";
 
 export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,claims }) {
- 
 
+  // This function gets the corresponding value of a role claims using the original valued claims array
+  // to set the default claims for the role
+  const getValues = (textArray, valueArray) => {
+    return textArray?.map(({ text }) => {
+      const match = valueArray.find(obj => obj.text === text);
+      return match ? match.value : undefined;
+    });
+  };
+    
 
-
+    const  claimedRoles = role?.claims.map((obj,index) => ({
+      text: obj.value
+    }))
+  
+    const ValuedClaims = claims.map((e,index)=> ({
+      text: e,
+      value: index + 1,
+    }))
+   
+    // Use the function to get corresponding values
+   const correspondingValues = getValues(claimedRoles, ValuedClaims);
+  
   const INITIAL_FORM_STATE = {
     claims : []
     // ... add other fields as necessary
   };
 
-  // role?.claims.map((obj) => ({
-  //   text: obj.value,
-  //   value: obj.value,
-  // }))
+
+  const [selectedValues , setSelectedValues] = useState([correspondingValues])
+
+
+  useEffect(() => {
+    setSelectedValues(correspondingValues)
+  }, [role,claims])
+
 
   const FORM_VALIDATION = Yup.object().shape({
 
     // ... add other validations as necessary
   });
+
 
   const handleFormSubmit = (values) => {
     values  =  {...values,role}
@@ -44,6 +68,8 @@ export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,clai
     onSubmit(values);
     setOpen(false);
   };
+
+
 
   return (
     <MDBModal open={isOpen} setOpen={setOpen} tabIndex="-1">
@@ -61,7 +87,7 @@ export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,clai
               enableReinitialize
             >
               {({ handleChange, setFieldValue, values }) => { 
-                console.log(values)
+        
                 return (
        
                 <Form>
@@ -70,14 +96,17 @@ export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,clai
                     id="claims"
                     name="claims"
                     multiple
-                    data={   claims.map((str) => ({
+                    data={   claims.map((str,index) => ({
                       text: str,
-                      value: str
+                      value: index + 1
                     }))}
-                    selected={values.claims}
-                    onChange={(e) => {
+                    value={selectedValues}
+                    onValueChange={(e) => {
+                      console.log(e)
                       const selectedClaims = e.map(option => option.value);
-                      setFieldValue("claims", selectedClaims);
+                      setSelectedValues(selectedClaims)
+                      setFieldValue("claims", e.map(option => option.text));
+             
                     }}
                     clearBtn
                     validation
@@ -87,7 +116,7 @@ export default function AffectClaimsModal({ isOpen, setOpen, role, onSubmit,clai
                 
                   {/* Add other fields as necessary */}
                   <MDBModalFooter>
-                    <MDBBtn outline color='danger' onClick={() => setOpen(false)} >
+                    <MDBBtn outline color='danger' type="button" onClick={() => setOpen(false)} >
                       Close
                     </MDBBtn>
                     <MDBBtn type="submit" className="m-mazars-btn">
